@@ -20,10 +20,11 @@ def ingest_data():
     df=df.reset_index()
     del df["index"]
     df['principales_palabras_clave']= df['principales_palabras_clave'].str.replace(r'\s+', ' ', regex=True)
+    df['principales_palabras_clave'] = df['principales_palabras_clave'].str.rstrip('.')
     df['porcentaje_de_palabras_clave']= df['porcentaje_de_palabras_clave'].str[:-2]
     df['porcentaje_de_palabras_clave']= df['porcentaje_de_palabras_clave'].str.replace(',','.')
     df['porcentaje_de_palabras_clave']= pd.to_numeric(df['porcentaje_de_palabras_clave'])
     df=df.astype({'principales_palabras_clave':'string'})
     df['cluster'] = df['cluster'].astype(int)
-    
+
     return df
